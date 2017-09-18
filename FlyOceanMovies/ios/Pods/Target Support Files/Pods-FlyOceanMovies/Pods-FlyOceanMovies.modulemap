@@ -1,0 +1,6 @@
+framework module Pods_FlyOceanMovies {
+  umbrella header "Pods-FlyOceanMovies-umbrella.h"
+
+  export *
+  module * { export * }
+}
