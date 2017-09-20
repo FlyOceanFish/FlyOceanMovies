@@ -26,7 +26,6 @@ target 'FlyOceanMovies' do
     'RCTWebSocket', # needed for debugging
     'RCTImage',
     'RCTNetwork',
-    # Add any other subspecs you want to use in your project
     'DevSupport'
   ]
 end
