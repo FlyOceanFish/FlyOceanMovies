@@ -7,6 +7,7 @@
 import MovieList from './app/Components/MovieList';
 import USBox from './app/Components/USBox';
 import Icons from './app/Assets/Icon';
+import Featured from './app/Components/Featured'
 
 import React, {Component} from 'react';
 
@@ -37,7 +38,7 @@ export default class FlyOceanMovies extends Component {
                         });
                     }}
                 >
-                    <MovieList/>
+                    <Featured/>
                 </TabBarIOS.Item>
 
                 <TabBarIOS.Item

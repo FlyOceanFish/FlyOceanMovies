@@ -5,6 +5,7 @@
  */
 
 import React, {Component} from 'react';
+import MoveDetail from './MovieDetail';
 
 import {styles} from '../styles/Main'
 
@@ -63,12 +64,16 @@ export default class MovieList extends Component {
 
     );
     _onPressButton = (item) => {
+        this.props.navigator.push({
+            title:item.title,
+            component:MoveDetail
+        });
         console.log(`<<${item.title}>>被点击了`);
     }
 
     renderFunction({item}) {
         return (
-            <TouchableHighlight underlayColor='red' onPress={this._onPressButton}>
+            <TouchableHighlight underlayColor='red' onPress={this._onPressButton(item)}>
                 <View style={styles.item}>
                     <View style={styles.itemImage}>
                         <Image source={{uri: item.images.large}} style={styles.image}/>
@@ -88,7 +93,7 @@ export default class MovieList extends Component {
     render() {
         if (!this.state.loaded) {
             return (
-                <View style={styles.container}>
+                <View style={[styles.container, {marginTop:64,marginBottom:48}]}>
                     <View style={styles.loading}>
                         <ActivityIndicator
                             size='large'
@@ -100,7 +105,7 @@ export default class MovieList extends Component {
             );
         }
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{marginTop:64,marginBottom:48}]}>
                 <FlatList
                     data={this.state.data}
                     // renderItem={this.renderFunction.bind(this)} 一定要绑定this，要不TouchableHighlight不起作用
