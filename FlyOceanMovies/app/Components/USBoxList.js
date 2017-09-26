@@ -5,7 +5,6 @@
  */
 
 import React, {Component} from 'react';
-import MoveDetail from './MovieDetail';
 
 import {styles} from '../styles/Main'
 
@@ -18,9 +17,9 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-const REQUEST_URL = 'https://api.douban.com/v2/movie/top250'
+const REQUEST_RUL = 'https://api.douban.com/v2/movie/us_box'
 
-export default class MovieList extends Component {
+export default class USBoxList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,10 +29,10 @@ export default class MovieList extends Component {
         this.fetchData();
     }
 
-    _keyExtractor = (item, index) => item.id;
+    _keyExtractor = (item, index) => item.subject.id;
 
     fetchData() {
-        fetch(REQUEST_URL)
+        fetch(REQUEST_RUL)
             .then(response => response.json())
             .then(responseJson => {
                 console.log('response-----：\n' + JSON.stringify(responseJson));
@@ -51,38 +50,34 @@ export default class MovieList extends Component {
         <TouchableHighlight underlayColor='rgba(34,26,38,0.2)' onPress={this._onPressButton.bind(this,item)}>
             <View style={styles.item}>
                 <View style={styles.itemImage}>
-                    <Image source={{uri: item.images.large}} style={styles.image}/>
+                    <Image source={{uri: item.subject.images.large}} style={styles.image}/>
                 </View>
                 <View style={styles.itemContent}>
-                    <Text style={styles.itemHeader}>{item.title}</Text>
-                    <Text style={styles.meta}>{item.original_title}({item.year})</Text>
-                    <Text style={styles.redText}>{item.rating.average}</Text>
+                    <Text style={styles.itemHeader}>{item.subject.title}</Text>
+                    <Text style={styles.meta}>{item.subject.original_title}({item.year})</Text>
+                    <Text style={styles.redText}>{item.subject.rating.average}</Text>
 
                 </View>
             </View>
         </TouchableHighlight>
 
     );
+
     _onPressButton = (item) => {
-        this.props.navigator.push({
-            title:item.title,
-            component:MoveDetail,
-            passProps:{item}
-        });
-        console.log(`<<${item.title}>>被点击了`);
+        console.log(`<<${item.subject.title}>>被点击了`);
     }
 
     renderFunction({item}) {
         return (
-            <TouchableHighlight underlayColor='red' onPress={this._onPressButton(item)}>
+            <TouchableHighlight underlayColor='red' onPress={this._onPressButton}>
                 <View style={styles.item}>
                     <View style={styles.itemImage}>
-                        <Image source={{uri: item.images.large}} style={styles.image}/>
+                        <Image source={{uri: item.subject.images.large}} style={styles.image}/>
                     </View>
                     <View style={styles.itemContent}>
-                        <Text style={styles.itemHeader}>{item.title}</Text>
-                        <Text style={styles.itemMeta}>{item.original_title}({item.year})</Text>
-                        <Text style={styles.redText}>{item.rating.average}</Text>
+                        <Text style={styles.itemHeader}>{item.subject.title}</Text>
+                        <Text style={styles.itemMeta}>{item.subject.original_title}({item.subject.year})</Text>
+                        <Text style={styles.redText}>{item.subject.rating.average}</Text>
 
                     </View>
                 </View>
@@ -94,7 +89,7 @@ export default class MovieList extends Component {
     render() {
         if (!this.state.loaded) {
             return (
-                <View style={[styles.container, {marginTop:64,marginBottom:48}]}>
+                <View style={styles.container}>
                     <View style={styles.loading}>
                         <ActivityIndicator
                             size='large'
@@ -106,7 +101,7 @@ export default class MovieList extends Component {
             );
         }
         return (
-            <View style={[styles.container,{marginTop:64,marginBottom:48}]}>
+            <View style={[styles.container,{paddingTop:64}]}>
                 <FlatList
                     data={this.state.data}
                     // renderItem={this.renderFunction.bind(this)} 一定要绑定this，要不TouchableHighlight不起作用

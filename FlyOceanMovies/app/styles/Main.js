@@ -14,10 +14,16 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderColor: 'rgba(100,253,201,0.1)',
-        flex: 1,
     },
     itemImage: {
 
+    },
+    itemText:{
+        fontSize:16,
+        fontFamily:'Helvetica Neue',
+        fontWeight:'300',
+        color:'rgba(0,0,0,0.8)',
+        lineHeight:26,
     },
     image: {
         width: 60,
