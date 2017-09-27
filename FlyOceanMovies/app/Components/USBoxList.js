@@ -24,7 +24,7 @@ export default class USBoxList extends Component {
         super(props);
         this.state = {
             data: [],
-            loaded: false
+            loaded: false,
         };
         this.fetchData();
     }
@@ -101,7 +101,7 @@ export default class USBoxList extends Component {
             );
         }
         return (
-            <View style={[styles.container,{paddingTop:64}]}>
+            <View style={[styles.container,{marginTop:64,marginBottom:49}]}>
                 <FlatList
                     data={this.state.data}
                     // renderItem={this.renderFunction.bind(this)} 一定要绑定this，要不TouchableHighlight不起作用

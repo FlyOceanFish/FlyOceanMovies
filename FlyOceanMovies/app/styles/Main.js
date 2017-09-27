@@ -64,4 +64,9 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 8,
     },
+    segmentItem:{
+        color:'black',
+        fontSize:17,
+        textAlign:'center'
+    },
 });

@@ -19,7 +19,7 @@ export default class FlyOceanMovies extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'us_box'
+            selectedTab: 'featured'
         };
     }
 

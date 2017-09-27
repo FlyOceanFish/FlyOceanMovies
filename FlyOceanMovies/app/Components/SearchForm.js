@@ -5,7 +5,9 @@ import {styles} from '../styles/Main';
 import {
     View,
     TextInput,
-    ActivityIndicator
+    ActivityIndicator,
+    Animated,
+    Easing
 } from 'react-native';
 import SearchResult from './SearchResult'
 
@@ -14,7 +16,8 @@ export  default class SearchForm extends Component{
         super(props);
         this.state=({
             query:'',
-            loaded:false
+            loaded:false,
+            translateValue: new Animated.ValueXY({x:0, y:0})
         });
     }
 
@@ -43,6 +46,18 @@ export  default class SearchForm extends Component{
             .catch((error) => {
                 console.error(error);
             });
+    }
+    startAnimal(){
+        this.state.translateValue.setValue({x:0, y:0});
+
+        Animated.spring(this.state.translateValue,{
+                toValue:{x:200, y:0},
+                friction: 5,// 摩擦力，默认为7.
+                tension: 20,// 张力，默认40。
+        }).start();
+    }
+    componentDidMount() {
+        this.startAnimal();
     }
     render(){
         return(
@@ -79,6 +94,11 @@ export  default class SearchForm extends Component{
                      }}
                  />
                 </View>
+                <Animated.View style={{width:49,height:40,backgroundColor:'red',marginLeft:40,marginTop:40,transform: [
+                        {translateX: this.state.translateValue.x},
+                        {translateY: this.state.translateValue.y},
+                        ]
+                    }}/>
             </View>
         );
     }

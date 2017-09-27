@@ -6,7 +6,6 @@
 
 import React, {Component} from 'react';
 import MoveDetail from './MovieDetail';
-
 import {styles} from '../styles/Main'
 
 import {
@@ -15,38 +14,70 @@ import {
     Image,
     Text,
     ActivityIndicator,
-    TouchableHighlight
+    TouchableHighlight,
+    Dimensions,
+    Animated,
 } from 'react-native';
 
+const ScreenWidth = Dimensions.get('window').width;
 const REQUEST_URL = 'https://api.douban.com/v2/movie/top250'
+const REQUEST_URL_NEW = 'https://api.douban.com/v2/movie/new_movies'
+
+var page  = 0;
 
 export default class MovieList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            loaded: false
+            loaded: false,
+            refresh:false,
+            translateValue:new Animated.ValueXY({x:0,y:0})
         };
-        this.fetchData();
+        this.fetchTopNewFilmData();
     }
 
-    _keyExtractor = (item, index) => item.id;
-
-    fetchData() {
-        fetch(REQUEST_URL)
+    _keyExtractor = (item, index) => index;
+    fetchTop250Data() {
+        let requestURL = `${REQUEST_URL}?start=${page*this.state.data.length}&count=10`;
+        fetch(requestURL)
             .then(response => response.json())
             .then(responseJson => {
                 console.log('response-----：\n' + JSON.stringify(responseJson));
-                this.setState({
-                    data: responseJson.subjects,
-                    loaded: true
-                })
+                let arrayData = responseJson.subjects;
+                if(arrayData instanceof Array){
+                    let data  = this.state.data;
+                    this.setState({
+                        data: (page==0?arrayData:[...data,...arrayData]),
+                        loaded: true,
+                        refresh:false
+                    })
+                }
             })
             .catch((error) => {
                 console.error(error);
             });
     }
-
+    fetchTopNewFilmData(){
+        let requestURL = `${REQUEST_URL_NEW}?start=${page*this.state.data.length}&count=10`;
+        fetch(requestURL)
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log('response-----：\n' + JSON.stringify(responseJson));
+                let arrayData = responseJson.subjects;
+                if(arrayData instanceof Array){
+                    let data  = this.state.data;
+                    this.setState({
+                        data: (page==0?arrayData:[...data,...arrayData]),
+                        loaded: true,
+                        refresh:false
+                    })
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
     _renderItem = ({item}) => (
         <TouchableHighlight underlayColor='rgba(34,26,38,0.2)' onPress={this._onPressButton.bind(this,item)}>
             <View style={styles.item}>
@@ -71,7 +102,12 @@ export default class MovieList extends Component {
         });
         console.log(`<<${item.title}>>被点击了`);
     }
-
+    _onRefresh = () => {
+        this.setState({
+            refresh:true
+        });
+        this.fetchData();
+    }
     renderFunction({item}) {
         return (
             <TouchableHighlight underlayColor='red' onPress={this._onPressButton(item)}>
@@ -90,7 +126,20 @@ export default class MovieList extends Component {
 
         );
     }
-
+    _startRightAnimation() {
+        Animated.spring(this.state.translateValue,{
+            toValue:{x:(ScreenWidth/2.0-15), y:0},
+            friction: 5,// 摩擦力，默认为7.
+            tension: 15,// 张力，默认40。
+        }).start();
+    }
+    _startLeftAnimation() {
+        Animated.spring(this.state.translateValue,{
+            toValue:{x:0, y:0},
+            friction: 5,// 摩擦力，默认为7.
+            tension: 15,// 张力，默认40。
+        }).start();
+    }
     render() {
         if (!this.state.loaded) {
             return (
@@ -107,12 +156,45 @@ export default class MovieList extends Component {
         }
         return (
             <View style={[styles.container,{marginTop:64,marginBottom:48}]}>
+                <View style={{height:44,marginLeft:15,marginRight:15}}>
+                    <View style={{flexDirection:'row', flex:1,justifyContent:'center',alignItems:'center'}}>
+                        <TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{
+                            this._startLeftAnimation();
+                            page = 0;
+                            this.fetchTopNewFilmData();
+                        }
+                        }>
+                        <Text style={styles.segmentItem}>新片榜</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{
+                            this._startRightAnimation();
+                            page = 0;
+                            this.fetchTop250Data();
+                            }
+                        }>
+                        <Text style={styles.segmentItem}>Top250</Text>
+                        </TouchableHighlight>
+                    </View>
+                    <Animated.View style={{height:1,backgroundColor:'red',width:100, marginLeft:(ScreenWidth/2.0-15-100)/2.0,transform:[
+                        {translateX:this.state.translateValue.x},
+                        {translateY:this.state.translateValue.y}
+                    ]}}/>
+                </View>
+
                 <FlatList
                     data={this.state.data}
                     // renderItem={this.renderFunction.bind(this)} 一定要绑定this，要不TouchableHighlight不起作用
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
                     style={styles.container}
+                    refreshing={this.state.refresh}
+                    onEndReachedThreshold= {0.4}
+                    onRefresh={this._onRefresh}
+                    onEndReached = {() =>{
+                        page++;
+                        this.fetchData();
+                     console.log('到底部了');
+                    }}
                 />
             </View>
         );
