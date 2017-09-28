@@ -16,7 +16,8 @@ target 'FlyOceanMovies' do
   pod 'DoubleConversion', :podspec => react_native_path + '/third-party-podspecs/DoubleConversion.podspec'
   pod 'GLog', :podspec => react_native_path + '/third-party-podspecs/GLog.podspec'
   pod 'Folly', :podspec => react_native_path + '/third-party-podspecs/Folly.podspec'
-
+  pod 'react-native-fetch-blob',
+      :path => '../node_modules/react-native-fetch-blob'
   # You don't necessarily need all of these subspecs, but this would be a typical setup.
   pod 'React', :path => react_native_path, :subspecs => [
     'Core',

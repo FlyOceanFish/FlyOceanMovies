@@ -1,0 +1,6 @@
+framework module react_native_fetch_blob {
+  umbrella header "react-native-fetch-blob-umbrella.h"
+
+  export *
+  module * { export * }
+}

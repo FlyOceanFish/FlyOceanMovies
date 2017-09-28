@@ -94,6 +94,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/GLog/glog.framework"
   install_framework "$BUILT_PRODUCTS_DIR/React/React.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Yoga/yoga.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/react-native-fetch-blob/react_native_fetch_blob.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/DoubleConversion/DoubleConversion.framework"
@@ -101,6 +102,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/GLog/glog.framework"
   install_framework "$BUILT_PRODUCTS_DIR/React/React.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Yoga/yoga.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/react-native-fetch-blob/react_native_fetch_blob.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

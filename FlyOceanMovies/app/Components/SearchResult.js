@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {styles} from '../styles/Main';
+import {CachedImage} from "react-native-img-cache";
 
 import MoveDetail from './MovieDetail';
 import {
@@ -8,7 +9,6 @@ import {
     Text,
     FlatList,
     TouchableHighlight,
-    Image
 } from 'react-native';
 
 export  default class SearchResult extends Component {
@@ -25,7 +25,7 @@ export  default class SearchResult extends Component {
         <TouchableHighlight underlayColor='rgba(34,26,38,0.2)' onPress={this._onPressButton.bind(this,item)}>
             <View style={styles.item}>
                 <View style={styles.itemImage}>
-                    <Image source={{uri: item.images.large}} style={styles.image}/>
+                    <CachedImage source={{uri: item.images.large}} style={styles.image}/>
                 </View>
                 <View style={styles.itemContent}>
                     <Text style={styles.itemHeader}>{item.title}</Text>

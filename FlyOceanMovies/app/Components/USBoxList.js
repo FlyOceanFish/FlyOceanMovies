@@ -7,6 +7,7 @@
 import React, {Component} from 'react';
 
 import {styles} from '../styles/Main'
+import {CachedImage} from "react-native-img-cache";
 
 import {
     View,
@@ -17,8 +18,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-const REQUEST_RUL = 'https://api.douban.com/v2/movie/us_box'
-
+import URLs from '../Base/URLs'
 export default class USBoxList extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +32,7 @@ export default class USBoxList extends Component {
     _keyExtractor = (item, index) => item.subject.id;
 
     fetchData() {
-        fetch(REQUEST_RUL)
+        fetch(URLs.REQUEST_URL_US_BOX)
             .then(response => response.json())
             .then(responseJson => {
                 console.log('response-----：\n' + JSON.stringify(responseJson));
@@ -50,7 +50,7 @@ export default class USBoxList extends Component {
         <TouchableHighlight underlayColor='rgba(34,26,38,0.2)' onPress={this._onPressButton.bind(this,item)}>
             <View style={styles.item}>
                 <View style={styles.itemImage}>
-                    <Image source={{uri: item.subject.images.large}} style={styles.image}/>
+                    <CachedImage source={{uri: item.subject.images.large}} style={styles.image}/>
                 </View>
                 <View style={styles.itemContent}>
                     <Text style={styles.itemHeader}>{item.subject.title}</Text>

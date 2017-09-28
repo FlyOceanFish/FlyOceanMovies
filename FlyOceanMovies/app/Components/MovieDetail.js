@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import {styles} from '../styles/Main'
 
+import URLs from '../Base/URLs'
+
 import {
     View,
     Text,
@@ -15,7 +17,7 @@ export  default class MovieDetail extends Component{
             movieDetail:'',
             loaded:false
         };
-        const REQUEST_URL = `https://api.douban.com/v2/movie/subject/${this.props.item.id}`;
+        const REQUEST_URL = `${URLs.REQUEST_URL_DETAIL}${this.props.item.id}`;
         this.fetchData(REQUEST_URL);
     }
 

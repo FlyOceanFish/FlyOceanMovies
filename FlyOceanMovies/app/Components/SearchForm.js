@@ -2,12 +2,13 @@
 
 import React,{Component} from 'react';
 import {styles} from '../styles/Main';
+import URLs from '../Base/URLs'
+
 import {
     View,
     TextInput,
     ActivityIndicator,
     Animated,
-    Easing
 } from 'react-native';
 import SearchResult from './SearchResult'
 
@@ -27,7 +28,7 @@ export  default class SearchForm extends Component{
         this.setState({
             loaded:true
         });
-        const REQUEST_URL = `https://api.douban.com/v2/movie/search?q=${this.state.query}`;
+        const REQUEST_URL = `${URLs.REQUEST_URL_SEARCH}{this.state.query}`;
         fetch(REQUEST_URL)
             .then(response => response.json())
             .then(responseJson => {
