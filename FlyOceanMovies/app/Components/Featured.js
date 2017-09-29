@@ -21,7 +21,10 @@ export default class Featured extends Component {
                 initialRoute={{
                         component:MovieList,
                         title:'推荐电影',
-                        rightButtonTitle: '增加',
+                        rightButtonTitle: '登录',
+                        onRightButtonPress:()=>{
+
+                        }
                     }
                 }
                 shadowHidden={true}
