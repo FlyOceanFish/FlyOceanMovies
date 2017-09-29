@@ -62,7 +62,7 @@ export  default class SearchForm extends Component{
     }
     render(){
         return(
-            <View style={[styles.container,{paddingTop:64}]}>
+            <View style={styles.container}>
                 <View style={{
                     paddingTop:7,
                     paddingLeft:7,

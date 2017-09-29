@@ -39,7 +39,7 @@ export  default class MovieDetail extends Component{
     render(){
         if (!this.state.loaded) {
             return (
-                <View style={[styles.container, {marginTop:64,marginBottom:48}]}>
+                <View style={[styles.container]}>
                     <View style={styles.loading}>
                         <ActivityIndicator
                             size='large'
@@ -59,7 +59,7 @@ export  default class MovieDetail extends Component{
             )
         });
         return (
-            <View style={[styles.container,{paddingTop:70}]}>
+            <View style={[styles.container]}>
                 <View style={[styles.item,{flexDirection:'column'}]}>
                     {summary}
                 </View>

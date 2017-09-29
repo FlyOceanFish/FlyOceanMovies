@@ -8,7 +8,7 @@ export default class Login extends Component{
 
     render(){
         return(
-            <View></View>
+            <View style={{flex:1,backgroundColor:'red'}}></View>
         )
     }
 }

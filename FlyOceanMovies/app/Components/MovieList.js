@@ -39,7 +39,6 @@ export default class MovieList extends Component {
         };
         this.fetchNewFilmData();
     }
-
     _keyExtractor = (item, index) => index;
     fetchTop250Data() {
         let requestURL = `${URLs.REQUEST_URL_TOP250}?start=${page*this.state.data.length}&count=10`;
@@ -134,11 +133,25 @@ export default class MovieList extends Component {
 
     );
     _onPressButton = (item) => {
+        /** 可以隐藏TabBar，但是显示不出来了。
+        this.props.navigator.setStyle({
+            tabBarHidden: true
+        })
+         */
         this.props.navigator.push({
-            title:item.title,
-            component:MoveDetail,
-            passProps:{item}
+            screen: 'com.fof.FlyOceanMovies.MovieDetail',
+            title: item.title,
+            passProps:{item},
+            navigatorStyle:{//此方式与苹果原生的hideWhenPushed一致
+                tabBarHidden: true
+            }
         });
+
+        // this.props.navigator.push({
+        //     title:item.title,
+        //     component:MoveDetail,
+        //     passProps:{item}
+        // });
         console.log(`<<${item.title}>>被点击了`);
     }
     _onRefresh = () => {
@@ -182,7 +195,7 @@ export default class MovieList extends Component {
     render() {
         if (!this.state.loaded) {
             return (
-                <View style={[styles.container, {marginTop:64,marginBottom:48}]}>
+                <View style={styles.container}>
                     <View style={styles.loading}>
                         <ActivityIndicator
                             size='large'
@@ -194,7 +207,7 @@ export default class MovieList extends Component {
             );
         }
         return (
-            <View style={[styles.container,{marginTop:64,marginBottom:48}]}>
+            <View style={[styles.container]}>
                 <View style={{height:44,marginLeft:15,marginRight:15}}>
                     <View style={{flexDirection:'row', flex:1,justifyContent:'center',alignItems:'center'}}>
                         <TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{

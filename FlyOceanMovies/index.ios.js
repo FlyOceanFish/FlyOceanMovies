@@ -4,6 +4,9 @@
  * @flow
  */
 
+import app from './app/App'
+
+/**
 import USBox from './app/Components/USBox';
 import Icons from './app/Assets/Icon';
 import Featured from './app/Components/Featured'
@@ -76,3 +79,4 @@ export default class FlyOceanMovies extends Component {
 }
 
 AppRegistry.registerComponent('FlyOceanMovies', () => FlyOceanMovies);
+*/

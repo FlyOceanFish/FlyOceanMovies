@@ -386,6 +386,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = EC23THMNG7;
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/boost\"",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/boost\"",
+					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
+				);
 				INFOPLIST_FILE = FlyOceanMovies/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -393,7 +400,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fom.FlyOceanMovies;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fof.FlyOceanMovies;
 				PRODUCT_NAME = FlyOceanMovies;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -406,6 +413,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EC23THMNG7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/DoubleConversion\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Folly\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GLog\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/React\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/react-native-fetch-blob\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Yoga\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/boost\"",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/boost\"",
+					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
+				);
 				INFOPLIST_FILE = FlyOceanMovies/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -413,7 +436,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fom.FlyOceanMovies;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fof.FlyOceanMovies;
 				PRODUCT_NAME = FlyOceanMovies;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
