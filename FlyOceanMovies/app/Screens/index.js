@@ -19,8 +19,7 @@ export function registerScreens() {
     Navigation.registerComponent('com.fof.FlyOceanMovies.SearchForm',()=>SearchForm);
     Navigation.registerComponent('com.fof.FlyOceanMovies.USBoxList',()=>USBoxList);
     Navigation.registerComponent('com.fof.FlyOceanMovies.MovieDetail',()=>MovieDetail);
-    Navigation.registerComponent('com.fof.FlyOceanMovies.MovieDetail',()=>MovieDetail);
-
+    Navigation.registerComponent('com.fof.FlyOceanMovies.Login',()=>Login);
 }
 export function registerScreenVisibilityListener() {
     new ScreenVisibilityListener({

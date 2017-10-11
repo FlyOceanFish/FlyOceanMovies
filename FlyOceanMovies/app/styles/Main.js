@@ -69,4 +69,10 @@ export const styles = StyleSheet.create({
         fontSize:17,
         textAlign:'center'
     },
+    loginText:{
+        color:'#1A1A1A',
+        fontSize:17,
+        textAlign:'left',
+        marginLeft:15
+    }
 });

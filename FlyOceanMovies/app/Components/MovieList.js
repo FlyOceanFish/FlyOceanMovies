@@ -5,7 +5,6 @@
  */
 
 import React, {Component} from 'react';
-import MoveDetail from './MovieDetail';
 import {styles} from '../styles/Main'
 import URLs from '../Base/URLs'
 import {CachedImage} from "react-native-img-cache";
@@ -13,7 +12,6 @@ import {CachedImage} from "react-native-img-cache";
 import {
     View,
     FlatList,
-    Image,
     Text,
     ActivityIndicator,
     TouchableHighlight,
@@ -29,6 +27,17 @@ const ITEM_WIDTH = 70;
 const offXItem = ((ScreenWidth-15*2)/3.0-ITEM_WIDTH)/2.0;
 
 export default class MovieList extends Component {
+    static navigatorButtons = {
+        rightButtons:[
+            {
+                title:'登录',
+                id:'login',
+                buttonFontSize:14,
+                buttonFontWeight:'600'
+            }
+        ]
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -38,8 +47,23 @@ export default class MovieList extends Component {
             translateValue:new Animated.ValueXY({x:0,y:0})
         };
         this.fetchNewFilmData();
+        this.props.navigator.setOnNavigatorEvent(this._onNavigationEvent.bind(this));
     }
+
+    _onNavigationEvent(event){
+        if (event.type=='NavBarButtonPress'){
+            if (event.id=='login'){
+                this.props.navigator.showModal({
+                    screen:'com.fof.FlyOceanMovies.Login',
+                    title:'登录',
+                    animationType:'slide-up'
+                })
+            }
+        }
+    }
+
     _keyExtractor = (item, index) => index;
+
     fetchTop250Data() {
         let requestURL = `${URLs.REQUEST_URL_TOP250}?start=${page*this.state.data.length}&count=10`;
         fetch(requestURL)
@@ -120,7 +144,7 @@ export default class MovieList extends Component {
         <TouchableHighlight underlayColor='rgba(34,26,38,0.2)' onPress={this._onPressButton.bind(this,item)}>
             <View style={styles.item}>
                 <View style={styles.itemImage}>
-                    <Image source={{uri: item.images.large}} style={styles.image}/>
+                    <CachedImage source={{uri: item.images.large}} style={styles.image}/>
                 </View>
                 <View style={styles.itemContent}>
                     <Text style={styles.itemHeader}>{item.title}</Text>

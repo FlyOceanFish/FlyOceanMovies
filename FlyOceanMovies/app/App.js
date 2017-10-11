@@ -1,12 +1,12 @@
 import {Platform} from 'react-native';
 import {Navigation} from 'react-native-navigation';
-import {registerScreens} from './Screens/index';
+import {registerScreens,registerScreenVisibilityListener} from './Screens/index';
 
 import Icons from './Assets/Icon';
 
 // screen related book keeping
 registerScreens();
-// registerScreenVisibilityListener();
+registerScreenVisibilityListener();
 
 const tabs = [{
         label: '推荐',
