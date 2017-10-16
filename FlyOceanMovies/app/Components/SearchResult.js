@@ -39,9 +39,12 @@ export  default class SearchResult extends Component {
     );
     _onPressButton = (item) => {
         this.props.navigator.push({
-            title:item.title,
-            component:MoveDetail,
-            passProps:{item}
+            screen: 'com.fof.FlyOceanMovies.MovieDetail',
+            title: item.title,
+            passProps:{item},
+            navigatorStyle:{//此方式与苹果原生的hideWhenPushed一致
+                tabBarHidden: true
+            }
         });
     }
 

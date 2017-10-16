@@ -10,7 +10,6 @@ import {
     ActivityIndicator,
     Animated,
 } from 'react-native';
-import SearchResult from './SearchResult'
 
 export  default class SearchForm extends Component{
     constructor(props){
@@ -18,7 +17,7 @@ export  default class SearchForm extends Component{
         this.state=({
             query:'',
             loaded:false,
-            translateValue: new Animated.ValueXY({x:0, y:0})
+            // translateValue: new Animated.ValueXY({x:0, y:0})
         });
     }
 
@@ -28,7 +27,7 @@ export  default class SearchForm extends Component{
         this.setState({
             loaded:true
         });
-        const REQUEST_URL = `${URLs.REQUEST_URL_SEARCH}{this.state.query}`;
+        const REQUEST_URL = `${URLs.REQUEST_URL_SEARCH}${this.state.query}`;
         fetch(REQUEST_URL)
             .then(response => response.json())
             .then(responseJson => {
@@ -37,10 +36,11 @@ export  default class SearchForm extends Component{
                 });
                 console.log('response-----：\n' + JSON.stringify(responseJson));
                 this.props.navigator.push({
-                    title:responseJson.title,
-                    component:SearchResult,
-                    passProps:{
-                       results:responseJson.subjects
+                    screen: 'com.fof.FlyOceanMovies.SearchResult',
+                    title: responseJson.title,
+                    passProps:{results:responseJson.subjects},
+                    navigatorStyle:{//此方式与苹果原生的hideWhenPushed一致
+                        tabBarHidden: true
                     }
                 });
             })

@@ -9,6 +9,7 @@ import SearchForm from '../Components/SearchForm';
 import USBoxList from '../Components/USBoxList';
 import MovieDetail from '../Components/MovieDetail';
 import Login from '../Components/Login';
+import SearchResult from '../Components/SearchResult'
 
 export function registerScreens() {
     Navigation.registerComponent('com.fof.FlyOceanMovies.featured',()=>Featured);
@@ -20,6 +21,8 @@ export function registerScreens() {
     Navigation.registerComponent('com.fof.FlyOceanMovies.USBoxList',()=>USBoxList);
     Navigation.registerComponent('com.fof.FlyOceanMovies.MovieDetail',()=>MovieDetail);
     Navigation.registerComponent('com.fof.FlyOceanMovies.Login',()=>Login);
+    Navigation.registerComponent('com.fof.FlyOceanMovies.SearchResult',()=>SearchResult);
+
 }
 export function registerScreenVisibilityListener() {
     new ScreenVisibilityListener({
