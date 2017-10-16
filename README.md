@@ -4,7 +4,7 @@
 本人练习的项目是一个通过豆瓣公共api实现了电影相关的一个APP。主要功能有推荐、搜索、登录、详情等，由于是刚学习完RN第一个练习项目，所以难免有些生疏和技术的不熟练，哪里有些的不好的地方希望大家可以不吝赐教。本项目是通过两个阶段完成的：第一阶段使用RN自带的控件比如[TabBarIOS](http://facebook.github.io/react-native/docs/tabbarios.html)、[NavigatorIOS](http://facebook.github.io/react-native/docs/navigatorios.html)、[Button](http://facebook.github.io/react-native/docs/button.html)、[Image](http://facebook.github.io/react-native/docs/image.html)等；第二阶段重构使用了比较火的一些第三方控件[react-native-navigation](https://www.npmjs.com/package/react-native-navigation)、[react-native-img-cache](https://github.com/remobile/react-native-cache-image)、[react-native-button](https://github.com/APSL/react-native-button)。
 ## 项目视频介绍
 
-![introduce.gif](http://upload-images.jianshu.io/upload_images/6644906-5aa8c786f24619c4.gif?imageMogr2/auto-orient/strip)
+![introduce.gif](introduce.gif)
 
 ### 使用到的技术
 
