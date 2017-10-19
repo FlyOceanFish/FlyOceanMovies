@@ -233,44 +233,62 @@ export default class MovieList extends Component {
         }
         return (
             <View style={[styles.container]}>
-                <View style={{height:44,marginLeft:15,marginRight:15}}>
-                    <View style={{flexDirection:'row', flex:1,justifyContent:'center',alignItems:'center'}}>
-                        <TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{
-                                currentIndex = 0;
-                                page = 0;
-                                this._startLeftAnimation();
+                <FOFSegmentControl
+                    titles={['正在热映','Top250','即将上映']}
+                    onPress={(i)=>{
+                        page = 0;
+                        switch (i){
+                            case 0:
                                 this.fetchNewFilmData();
-                                this.refs.flatList.scrollToOffset(0);
-                            }
-                        }>
-                        <Text style={styles.segmentItem}>正在热映</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{
-                                page = 0;
-                                currentIndex = 1;
-                                this._startRightAnimation();
+                                break;
+                            case 1:
                                 this.fetchTop250Data();
-                                this.refs.flatList.scrollToOffset(0);
-                            }
-                        }>
-                        <Text style={styles.segmentItem}>Top250</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{
-                                page = 0;
-                                currentIndex = 2;
-                                this._startRightAnimation();
+                                break;
+                            case 2:
                                 this.fetchSoonFilmData();
-                                this.refs.flatList.scrollToOffset(0);
-                            }
-                        }>
-                            <Text style={styles.segmentItem}>即将上映</Text>
-                        </TouchableHighlight>
-                    </View>
-                    <Animated.View style={{height:1,backgroundColor:'red',width:ITEM_WIDTH, marginLeft:offXItem,transform:[
-                        {translateX:this.state.translateValue.x},
-                        {translateY:this.state.translateValue.y}
-                    ]}}/>
-                </View>
+                                break;
+                        }
+                        this.refs.flatList.scrollToOffset(0);
+                    }}
+                />
+                {/*<View style={{height:44,marginLeft:15,marginRight:15}}>*/}
+                    {/*<View style={{flexDirection:'row', flex:1,justifyContent:'center',alignItems:'center'}}>*/}
+                        {/*<TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{*/}
+                                {/*currentIndex = 0;*/}
+                                {/*page = 0;*/}
+                                {/*this._startLeftAnimation();*/}
+                                {/*this.fetchNewFilmData();*/}
+                                {/*this.refs.flatList.scrollToOffset(0);*/}
+                            {/*}*/}
+                        {/*}>*/}
+                        {/*<Text style={styles.segmentItem}>正在热映</Text>*/}
+                        {/*</TouchableHighlight>*/}
+                        {/*<TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{*/}
+                                {/*page = 0;*/}
+                                {/*currentIndex = 1;*/}
+                                {/*this._startRightAnimation();*/}
+                                {/*this.fetchTop250Data();*/}
+                                {/*this.refs.flatList.scrollToOffset(0);*/}
+                            {/*}*/}
+                        {/*}>*/}
+                        {/*<Text style={styles.segmentItem}>Top250</Text>*/}
+                        {/*</TouchableHighlight>*/}
+                        {/*<TouchableHighlight underlayColor='transparent' style={{flex:1}} onPress={()=>{*/}
+                                {/*page = 0;*/}
+                                {/*currentIndex = 2;*/}
+                                {/*this._startRightAnimation();*/}
+                                {/*this.fetchSoonFilmData();*/}
+                                {/*this.refs.flatList.scrollToOffset(0);*/}
+                            {/*}*/}
+                        {/*}>*/}
+                            {/*<Text style={styles.segmentItem}>即将上映</Text>*/}
+                        {/*</TouchableHighlight>*/}
+                    {/*</View>*/}
+                    {/*<Animated.View style={{height:1,backgroundColor:'red',width:ITEM_WIDTH, marginLeft:offXItem,transform:[*/}
+                        {/*{translateX:this.state.translateValue.x},*/}
+                        {/*{translateY:this.state.translateValue.y}*/}
+                    {/*]}}/>*/}
+                {/*</View>*/}
 
                 <FlatList
                     data={this.state.data}
