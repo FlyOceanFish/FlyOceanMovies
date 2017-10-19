@@ -1,5 +1,5 @@
 
-import React,{Component,PropTypes} from 'react';
+import React,{Component} from 'react';
 import {
     View,
     TouchableHighlight,
@@ -9,26 +9,27 @@ import {
     StyleSheet
 } from 'react-native';
 
+import PropTypes from 'prop-types';
+
 const ScreenWidth = Dimensions.get('window').width;
-const ITEM_WIDTH = 70;
-const offXItem = ((ScreenWidth-15*2)/this.props.titles.length-ITEM_WIDTH)/2.0;
+const SCROLL_BAR_WIDTH = 70;
 var preIndex = 0;
 
 export default class FOFSegementControl extends Component{
     constructor(props){
         super(props);
-
+        var offXItem = ((ScreenWidth-15*2)/this.props.titles.length-SCROLL_BAR_WIDTH)/2.0;
     }
     _startRightAnimation() {
         Animated.spring(this.state.translateValue,{
-            toValue:{x:offXItem*2*currentIndex+ITEM_WIDTH*currentIndex, y:0},
+            toValue:{x:offXItem*2*currentIndex+SCROLL_BAR_WIDTH*currentIndex, y:0},
             friction: 5,// 摩擦力，默认为7.
             tension: 15,// 张力，默认40。
         }).start();
     }
     _startLeftAnimation() {
         Animated.spring(this.state.translateValue,{
-            toValue:{x:offXItem*2*currentIndex+ITEM_WIDTH*currentIndex, y:0},
+            toValue:{x:offXItem*2*currentIndex+SCROLL_BAR_WIDTH*currentIndex, y:0},
             friction: 5,// 摩擦力，默认为7.
             tension: 15,// 张力，默认40。
         }).start();
@@ -59,11 +60,25 @@ export default class FOFSegementControl extends Component{
             </View>
         );
     }
-
     render(){
+        var items = [];
+        var titles = this.props.titles;
+        for(var i = 0;i<titles.length;i++){
+            items.push(this.renderTitle(titles[i],i));
+        }
+        let scrollBar = (
+            <Animated.View style={[styles.bar,{backgroundColor:this.props.barColor,marginLeft:offXItem,transform:[
+                {translateX:this.state.translateValue.x},
+                {translateY:this.state.translateValue.y}
+            ]}]}/>
+        )
         return(
             <View {...this.props} style={[styles.container,this.props.style]}>
-
+                {this.props.barPosition=='top' && scrollBar}
+                <View style={styles.titleContainer}>
+                    {items}
+                </View>
+                {this.props.bar=='bottom' && scrollBar}
             </View>
         );
     }
@@ -77,15 +92,23 @@ FOFSegementControl.prototypes = {
     selectedIndex:PropTypes.number,
     renderTitle:PropTypes.func,
     underlayColor:PropTypes.string,
+    barPosition:PropTypes.string,
+    barColor:PropTypes.string
 };
 
 FOFSegementControl.defaultProps = {
     barColor:'#44B7E1',
-    titleStyle:{},
+    titleStyle:{
+        color:'black',
+        fontSize:17,
+        textAlign:'center'
+    },
     selectedTitleStyle:{},
     onPress:()=>{},
     selectedIndex:0,
     underlayColor:'transparent',
+    barPosition:'bottom',
+    barColor:'red'
 };
 
 var styles = StyleSheet.create({
@@ -102,5 +125,9 @@ var styles = StyleSheet.create({
         color:'black',
         fontSize:17,
         textAlign:'center'
+    },
+    scrollBar:{
+        height:1,
+        width:SCROLL_BAR_WIDTH,
     }
 })

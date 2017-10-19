@@ -8,6 +8,7 @@ import React, {Component} from 'react';
 import {styles} from '../styles/Main'
 import URLs from '../Base/URLs'
 import {CachedImage} from "react-native-img-cache";
+import FOFSegmentControl from '../Common/SegmentControl/FOFSegmentControl'
 
 import {
     View,
